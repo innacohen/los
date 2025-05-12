@@ -1,0 +1,143 @@
+---
+title: "Tables and Figures for Manuscript"
+author: "Inna Cohen"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = F, include=T, message=F)
+
+library(data.table)
+library(tidyverse)
+library(table1)
+
+master = fread("master_los.csv")
+
+
+# Concise output for followup table (only Yes's, instead of Yes/No)
+rndr <- function(x, ...) {
+  y <- render.default(x, ...)
+  if (is.logical(x)) y[2] else y
+}
+
+
+#Show the mean (SD) and median (IQR) for continuous variables
+my.render.cont <- function(x) {
+  with(stats.default(x), 
+       c("",
+         
+         "Mean (SD)" = sprintf("%s (%s)",
+                               round_pad(MEAN, 1),
+                               round_pad(SD, 1)),
+         
+         "Median (IQR)" = sprintf("%s (%s, %s)",
+                                  round_pad(MEDIAN, 1), 
+                                  round_pad(Q1, 1), 
+                                  round_pad(Q3, 1)))
+  )}
+
+
+pvalue <- function(x, ...) {
+  # Construct vectors of data y, and groups (strata) g
+  y <- unlist(x)
+  g <- factor(rep(1:length(x), times=sapply(x, length)))
+  if (is.numeric(y)) {
+    # For numeric variables, perform a standard 2-sample t-test
+    #p <- t.test(y ~ g)$p.value
+    p <- wilcox.test(y ~ g)$p.value
+  } else {
+    # For categorical variables, perform a chi-squared test of independence
+    p <- chisq.test(table(y, g))$p.value
+  }
+  # Format the p-value, using an HTML entity for the less-than sign.
+  # The initial empty string places the output on the line below the variable label.
+  c("", sub("<", "&lt;", format.pval(p, digits=3, eps=0.001)))
+}
+
+```
+
+### Table 1. Characteristics
+
+
+```{r}
+top5_drgs = master %>%
+  group_by(viz_drg) %>%
+  count() %>%
+  arrange(desc(n)) %>%
+  head(5)
+
+
+master = master %>%
+  mutate(
+     icu_any_icu_yn = factor(icu_any_icu_yn, levels=c(1,0), labels=c("ICU","Non-ICU")),
+     viz_outcome_prolonged_los_yn = factor(viz_outcome_prolonged_los_yn, levels=c(1,0), labels = c("High O/E", "Low O/E")),
+     top5_drgs = ifelse(viz_drg %in% top5_drgs$viz_drg, viz_drg, "Other"),
+     thro_boarding_yn = factor(thro_boarding_yn, levels=c(1,0), labels=c("ED Boarders","Non-Boarders"))
+     
+)
+
+
+label(master$viz_age) = "Age"
+label(master$viz_gender) = "Gender"
+label(master$viz_race) = "Race"
+label(master$viz_ethnicity) = "Ethnicity"
+label(master$viz_language) = "Language"
+label(master$viz_insurance) = "Insurance"
+label(master$viz_service_collapsed) = "Service"
+label(master$viz_disp_collapsed) = "Disposition"
+label(master$viz_outcome_prolonged_los_yn) = "O:E Ratio"
+label(master$icu_any_icu_yn) = "ICU"    
+label(master$top5_drgs) = "Top 5 DRGS"
+label(master$thro_boarding_yn) = "Boarding Status"
+
+t1a = table1(~viz_age + viz_gender + viz_race + viz_ethnicity + viz_language + viz_insurance + viz_service_collapsed + viz_disp_collapsed + icu_any_icu_yn + top5_drgs + thro_boarding_yn | viz_outcome_prolonged_los_yn, data=master , render = rndr,  render.continuous = my.render.cont, overall=F, caption = "Table 1. Demograpics with p-values", extra.col=list(`P-value`=pvalue))
+
+
+t1b = table1(~viz_age + viz_gender + viz_race + viz_ethnicity + viz_language + viz_insurance + viz_service_collapsed + viz_disp_collapsed + icu_any_icu_yn + top5_drgs + thro_boarding_yn | viz_outcome_prolonged_los_yn, data=master , render = rndr,  render.continuous = my.render.cont, caption = "Table 1. Overall")
+
+```
+                                             
+
+```{r}
+t1b
+```
+
+
+### Table 2. Consult and Imaging data
+
+```{r}
+
+label(master$con_max_admit_order_to_consult_order_any_hrs) = "Admit Order to Consult Order (hours)"
+label(master$con_max_consult_order_to_note_any_hrs) = "Consult order to Note (hours)"
+label(master$con_max_consult_order_to_sign_any_hrs) = "Consult Order to Sign (hours)"
+label(master$con_max_admit_order_to_consult_completion_any_hrs) = "Admit Order to Consult Completion (hours)"
+label(master$img_max_admit_order_to_imaging_order_any_hrs) = "Admit Order to Imaging Order (hours)"
+label(master$img_max_order_to_completion_any_hrs) = "Imaging Order to Completion (hours)"
+label(master$img_max_order_to_read_any_hrs) = "Imaging Order to Read (hours)"
+label(master$img_max_admit_order_to_imaging_read_any_hrs) = "Admit Order to Imaging Read (hours)"
+
+
+
+t2 = master %>%
+  drop_na(thro_boarding_yn) %>%
+            table1(~con_max_admit_order_to_consult_order_any_hrs +
+              con_max_consult_order_to_sign_any_hrs + 
+              con_max_admit_order_to_consult_completion_any_hrs +
+              img_max_admit_order_to_imaging_order_any_hrs + img_max_order_to_completion_any_hrs +
+              img_max_order_to_read_any_hrs +
+              img_max_admit_order_to_imaging_read_any_hrs | thro_boarding_yn, data=., extra.col=list(`P-value`=pvalue), overall=F)
+
+t2
+```
+
+### DRG numbers (%) stratified by OE and Total (similar to table)
+
+```{r}
+label(master$viz_drg) = "DRG"
+
+s1 = table1(~viz_drg|viz_outcome_prolonged_los_yn, data=master)
+
+s1
+```
+

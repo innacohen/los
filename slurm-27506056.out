@@ -1,0 +1,1366 @@
+The following modules were not unloaded:
+  (Use "module --force purge" to unload all):
+
+  1) StdEnv
+Input Notebook:  los_features_all_with_quintiles_07-16-2024.ipynb
+Output Notebook: los_features_all_with_quintiles_07-25-2024.ipynb
+Executing:   0%|          | 0/58 [00:00<?, ?cell/s]Executing notebook with kernel: python3
+Executing:   2%|▏         | 1/58 [00:06<06:09,  6.49s/cell]Executing:   3%|▎         | 2/58 [00:31<16:23, 17.56s/cell]Executing:   9%|▊         | 5/58 [00:32<04:36,  5.22s/cell]Executing:  19%|█▉        | 11/58 [00:32<01:21,  1.72s/cell]Executing:  26%|██▌       | 15/58 [00:34<00:50,  1.18s/cell]Executing:  29%|██▉       | 17/58 [00:34<00:39,  1.05cell/s]Executing:  36%|███▌      | 21/58 [00:34<00:22,  1.67cell/s]Executing:  40%|███▉      | 23/58 [00:49<00:20,  1.67cell/s]Executing:  41%|████▏     | 24/58 [01:26<03:06,  5.47s/cell]Executing:  50%|█████     | 29/58 [02:07<03:10,  6.56s/cell]Executing:  60%|██████    | 35/58 [02:31<02:06,  5.49s/cell]Executing:  67%|██████▋   | 39/58 [02:31<01:15,  3.96s/cell]Executing:  72%|███████▏  | 42/58 [02:32<00:49,  3.11s/cell]Executing:  76%|███████▌  | 44/58 [02:32<00:35,  2.56s/cell]Executing:  79%|███████▉  | 46/58 [02:33<00:26,  2.20s/cell]Executing:  84%|████████▍ | 49/58 [02:35<00:14,  1.64s/cell]Executing:  84%|████████▍ | 49/58 [02:35<00:28,  3.18s/cell]
+Traceback (most recent call last):
+  File "/gpfs/milgram/project/hwang/imc33/conda_envs/aitc/bin/papermill", line 10, in <module>
+    sys.exit(papermill())
+  File "/gpfs/milgram/project/hwang/imc33/conda_envs/aitc/lib/python3.8/site-packages/click/core.py", line 1157, in __call__
+    return self.main(*args, **kwargs)
+  File "/gpfs/milgram/project/hwang/imc33/conda_envs/aitc/lib/python3.8/site-packages/click/core.py", line 1078, in main
+    rv = self.invoke(ctx)
+  File "/gpfs/milgram/project/hwang/imc33/conda_envs/aitc/lib/python3.8/site-packages/click/core.py", line 1434, in invoke
+    return ctx.invoke(self.callback, **ctx.params)
+  File "/gpfs/milgram/project/hwang/imc33/conda_envs/aitc/lib/python3.8/site-packages/click/core.py", line 783, in invoke
+    return __callback(*args, **kwargs)
+  File "/gpfs/milgram/project/hwang/imc33/conda_envs/aitc/lib/python3.8/site-packages/click/decorators.py", line 33, in new_func
+    return f(get_current_context(), *args, **kwargs)
+  File "/gpfs/milgram/project/hwang/imc33/conda_envs/aitc/lib/python3.8/site-packages/papermill/cli.py", line 235, in papermill
+    execute_notebook(
+  File "/gpfs/milgram/project/hwang/imc33/conda_envs/aitc/lib/python3.8/site-packages/papermill/execute.py", line 131, in execute_notebook
+    raise_for_execution_errors(nb, output_path)
+  File "/gpfs/milgram/project/hwang/imc33/conda_envs/aitc/lib/python3.8/site-packages/papermill/execute.py", line 251, in raise_for_execution_errors
+    raise error
+papermill.exceptions.PapermillExecutionError: 
+---------------------------------------------------------------------------
+Exception encountered at "In [45]":
+---------------------------------------------------------------------------
+ValueError                                Traceback (most recent call last)
+Cell In[45], line 2
+      1 clf_xgb = xgb.XGBClassifier(objective='binary:logistic', missing=None, seed=42)
+----> 2 clf_xgb.fit(X_train_selected, 
+      3             y_train['viz_outcome_prolonged_los_yn'], 
+      4             verbose=True,
+      5             early_stopping_rounds=10,
+      6             eval_metric='aucpr',
+      7             eval_set=[(X_val_selected, y_val['viz_outcome_prolonged_los_yn'])])
+
+File /gpfs/milgram/project/hwang/imc33/conda_envs/aitc/lib/python3.8/site-packages/xgboost/core.py:730, in require_keyword_args.<locals>.throw_if.<locals>.inner_f(*args, **kwargs)
+    728 for k, arg in zip(sig.parameters, args):
+    729     kwargs[k] = arg
+--> 730 return func(**kwargs)
+
+File /gpfs/milgram/project/hwang/imc33/conda_envs/aitc/lib/python3.8/site-packages/xgboost/sklearn.py:1500, in XGBClassifier.fit(self, X, y, sample_weight, base_margin, eval_set, eval_metric, early_stopping_rounds, verbose, xgb_model, sample_weight_eval_set, base_margin_eval_set, feature_weights, callbacks)
+   1489     params["num_class"] = self.n_classes_
+   1491 (
+   1492     model,
+   1493     metric,
+   (...)
+   1498     xgb_model, eval_metric, params, early_stopping_rounds, callbacks
+   1499 )
+-> 1500 train_dmatrix, evals = _wrap_evaluation_matrices(
+   1501     missing=self.missing,
+   1502     X=X,
+   1503     y=y,
+   1504     group=None,
+   1505     qid=None,
+   1506     sample_weight=sample_weight,
+   1507     base_margin=base_margin,
+   1508     feature_weights=feature_weights,
+   1509     eval_set=eval_set,
+   1510     sample_weight_eval_set=sample_weight_eval_set,
+   1511     base_margin_eval_set=base_margin_eval_set,
+   1512     eval_group=None,
+   1513     eval_qid=None,
+   1514     create_dmatrix=self._create_dmatrix,
+   1515     enable_categorical=self.enable_categorical,
+   1516     feature_types=self.feature_types,
+   1517 )
+   1519 self._Booster = train(
+   1520     params,
+   1521     train_dmatrix,
+   (...)
+   1530     callbacks=callbacks,
+   1531 )
+   1533 if not callable(self.objective):
+
+File /gpfs/milgram/project/hwang/imc33/conda_envs/aitc/lib/python3.8/site-packages/xgboost/sklearn.py:521, in _wrap_evaluation_matrices(missing, X, y, group, qid, sample_weight, base_margin, feature_weights, eval_set, sample_weight_eval_set, base_margin_eval_set, eval_group, eval_qid, create_dmatrix, enable_categorical, feature_types)
+    501 def _wrap_evaluation_matrices(
+    502     missing: float,
+    503     X: Any,
+   (...)
+    517     feature_types: Optional[FeatureTypes],
+    518 ) -> Tuple[Any, List[Tuple[Any, str]]]:
+    519     """Convert array_like evaluation matrices into DMatrix.  Perform validation on the
+    520     way."""
+--> 521     train_dmatrix = create_dmatrix(
+    522         data=X,
+    523         label=y,
+    524         group=group,
+    525         qid=qid,
+    526         weight=sample_weight,
+    527         base_margin=base_margin,
+    528         feature_weights=feature_weights,
+    529         missing=missing,
+    530         enable_categorical=enable_categorical,
+    531         feature_types=feature_types,
+    532         ref=None,
+    533     )
+    535     n_validation = 0 if eval_set is None else len(eval_set)
+    537     def validate_or_none(meta: Optional[Sequence], name: str) -> Sequence:
+
+File /gpfs/milgram/project/hwang/imc33/conda_envs/aitc/lib/python3.8/site-packages/xgboost/sklearn.py:958, in XGBModel._create_dmatrix(self, ref, **kwargs)
+    956 if _can_use_qdm(self.tree_method) and self.booster != "gblinear":
+    957     try:
+--> 958         return QuantileDMatrix(
+    959             **kwargs, ref=ref, nthread=self.n_jobs, max_bin=self.max_bin
+    960         )
+    961     except TypeError:  # `QuantileDMatrix` supports lesser types than DMatrix
+    962         pass
+
+File /gpfs/milgram/project/hwang/imc33/conda_envs/aitc/lib/python3.8/site-packages/xgboost/core.py:730, in require_keyword_args.<locals>.throw_if.<locals>.inner_f(*args, **kwargs)
+    728 for k, arg in zip(sig.parameters, args):
+    729     kwargs[k] = arg
+--> 730 return func(**kwargs)
+
+File /gpfs/milgram/project/hwang/imc33/conda_envs/aitc/lib/python3.8/site-packages/xgboost/core.py:1529, in QuantileDMatrix.__init__(self, data, label, weight, base_margin, missing, silent, feature_names, feature_types, nthread, max_bin, ref, group, qid, label_lower_bound, label_upper_bound, feature_weights, enable_categorical, data_split_mode)
+   1509     if any(
+   1510         info is not None
+   1511         for info in (
+   (...)
+   1522         )
+   1523     ):
+   1524         raise ValueError(
+   1525             "If data iterator is used as input, data like label should be "
+   1526             "specified as batch argument."
+   1527         )
+-> 1529 self._init(
+   1530     data,
+   1531     ref=ref,
+   1532     label=label,
+   1533     weight=weight,
+   1534     base_margin=base_margin,
+   1535     group=group,
+   1536     qid=qid,
+   1537     label_lower_bound=label_lower_bound,
+   1538     label_upper_bound=label_upper_bound,
+   1539     feature_weights=feature_weights,
+   1540     feature_names=feature_names,
+   1541     feature_types=feature_types,
+   1542     enable_categorical=enable_categorical,
+   1543 )
+
+File /gpfs/milgram/project/hwang/imc33/conda_envs/aitc/lib/python3.8/site-packages/xgboost/core.py:1588, in QuantileDMatrix._init(self, data, ref, enable_categorical, **meta)
+   1576 config = make_jcargs(
+   1577     nthread=self.nthread, missing=self.missing, max_bin=self.max_bin
+   1578 )
+   1579 ret = _LIB.XGQuantileDMatrixCreateFromCallback(
+   1580     None,
+   1581     it.proxy.handle,
+   (...)
+   1586     ctypes.byref(handle),
+   1587 )
+-> 1588 it.reraise()
+   1589 # delay check_call to throw intermediate exception first
+   1590 _check_call(ret)
+
+File /gpfs/milgram/project/hwang/imc33/conda_envs/aitc/lib/python3.8/site-packages/xgboost/core.py:576, in DataIter.reraise(self)
+    574 exc = self._exception
+    575 self._exception = None
+--> 576 raise exc
+
+File /gpfs/milgram/project/hwang/imc33/conda_envs/aitc/lib/python3.8/site-packages/xgboost/core.py:557, in DataIter._handle_exception(self, fn, dft_ret)
+    554     return dft_ret
+    556 try:
+--> 557     return fn()
+    558 except Exception as e:  # pylint: disable=broad-except
+    559     # Defer the exception in order to return 0 and stop the iteration.
+    560     # Exception inside a ctype callback function has no effect except
+    561     # for printing to stderr (doesn't stop the execution).
+    562     tb = sys.exc_info()[2]
+
+File /gpfs/milgram/project/hwang/imc33/conda_envs/aitc/lib/python3.8/site-packages/xgboost/core.py:641, in DataIter._next_wrapper.<locals>.<lambda>()
+    638     self._data_ref = ref
+    640 # pylint: disable=not-callable
+--> 641 return self._handle_exception(lambda: self.next(input_data), 0)
+
+File /gpfs/milgram/project/hwang/imc33/conda_envs/aitc/lib/python3.8/site-packages/xgboost/data.py:1280, in SingleBatchInternalIter.next(self, input_data)
+   1278     return 0
+   1279 self.it += 1
+-> 1280 input_data(**self.kwargs)
+   1281 return 1
+
+File /gpfs/milgram/project/hwang/imc33/conda_envs/aitc/lib/python3.8/site-packages/xgboost/core.py:730, in require_keyword_args.<locals>.throw_if.<locals>.inner_f(*args, **kwargs)
+    728 for k, arg in zip(sig.parameters, args):
+    729     kwargs[k] = arg
+--> 730 return func(**kwargs)
+
+File /gpfs/milgram/project/hwang/imc33/conda_envs/aitc/lib/python3.8/site-packages/xgboost/core.py:624, in DataIter._next_wrapper.<locals>.input_data(data, feature_names, feature_types, **kwargs)
+    622     new, cat_codes, feature_names, feature_types = self._temporary_data
+    623 else:
+--> 624     new, cat_codes, feature_names, feature_types = _proxy_transform(
+    625         data,
+    626         feature_names,
+    627         feature_types,
+    628         self._enable_categorical,
+    629     )
+    630 # Stage the data, meta info are copied inside C++ MetaInfo.
+    631 self._temporary_data = (new, cat_codes, feature_names, feature_types)
+
+File /gpfs/milgram/project/hwang/imc33/conda_envs/aitc/lib/python3.8/site-packages/xgboost/data.py:1315, in _proxy_transform(data, feature_names, feature_types, enable_categorical)
+   1313     data = pd.DataFrame(data)
+   1314 if _is_pandas_df(data):
+-> 1315     arr, feature_names, feature_types = _transform_pandas_df(
+   1316         data, enable_categorical, feature_names, feature_types
+   1317     )
+   1318     arr, _ = _ensure_np_dtype(arr, arr.dtype)
+   1319     return arr, None, feature_names, feature_types
+
+File /gpfs/milgram/project/hwang/imc33/conda_envs/aitc/lib/python3.8/site-packages/xgboost/data.py:490, in _transform_pandas_df(data, enable_categorical, feature_names, feature_types, meta, meta_type)
+    483 for dtype in data.dtypes:
+    484     if not (
+    485         (dtype.name in _pandas_dtype_mapper)
+    486         or is_pd_sparse_dtype(dtype)
+    487         or (is_pd_cat_dtype(dtype) and enable_categorical)
+    488         or is_pa_ext_dtype(dtype)
+    489     ):
+--> 490         _invalid_dataframe_dtype(data)
+    491     if is_pa_ext_dtype(dtype):
+    492         pyarrow_extension = True
+
+File /gpfs/milgram/project/hwang/imc33/conda_envs/aitc/lib/python3.8/site-packages/xgboost/data.py:308, in _invalid_dataframe_dtype(data)
+    306 type_err = "DataFrame.dtypes for data must be int, float, bool or category."
+    307 msg = f"""{type_err} {_ENABLE_CAT_ERR} {err}"""
+--> 308 raise ValueError(msg)
+
+ValueError: DataFrame.dtypes for data must be int, float, bool or category. When categorical type is supplied, The experimental DMatrix parameter`enable_categorical` must be set to `True`.  Invalid columns:medical_record_number: object
+
+Input Notebook:  los_features_all_without_quintiles_07-08-2024.ipynb
+Output Notebook: los_features_all_without_quintiles_07-25-2024.ipynb
+Executing:   0%|          | 0/56 [00:00<?, ?cell/s]Executing notebook with kernel: python3
+Executing:   2%|▏         | 1/56 [00:00<00:52,  1.05cell/s]Executing:   4%|▎         | 2/56 [00:02<01:10,  1.30s/cell]Executing:   9%|▉         | 5/56 [00:03<00:30,  1.70cell/s]Executing:  20%|█▉        | 11/56 [00:03<00:09,  4.88cell/s]Executing:  27%|██▋       | 15/56 [00:03<00:06,  6.72cell/s]Executing:  32%|███▏      | 18/56 [00:03<00:04,  8.46cell/s]Executing:  39%|███▉      | 22/56 [00:04<00:02, 11.57cell/s]Executing:  45%|████▍     | 25/56 [00:05<00:05,  5.49cell/s]Executing:  52%|█████▏    | 29/56 [00:12<00:20,  1.29cell/s]Executing:  62%|██████▎   | 35/56 [00:23<00:25,  1.20s/cell]Executing:  70%|██████▉   | 39/56 [00:23<00:14,  1.16cell/s]Executing:  73%|███████▎  | 41/56 [00:24<00:11,  1.30cell/s]Executing:  77%|███████▋  | 43/56 [00:24<00:08,  1.59cell/s]Executing:  82%|████████▏ | 46/56 [00:24<00:04,  2.00cell/s]Executing:  88%|████████▊ | 49/56 [00:26<00:03,  2.18cell/s]Executing:  88%|████████▊ | 49/56 [00:26<00:03,  1.84cell/s]
+Traceback (most recent call last):
+  File "/gpfs/milgram/project/hwang/imc33/conda_envs/aitc/bin/papermill", line 10, in <module>
+    sys.exit(papermill())
+  File "/gpfs/milgram/project/hwang/imc33/conda_envs/aitc/lib/python3.8/site-packages/click/core.py", line 1157, in __call__
+    return self.main(*args, **kwargs)
+  File "/gpfs/milgram/project/hwang/imc33/conda_envs/aitc/lib/python3.8/site-packages/click/core.py", line 1078, in main
+    rv = self.invoke(ctx)
+  File "/gpfs/milgram/project/hwang/imc33/conda_envs/aitc/lib/python3.8/site-packages/click/core.py", line 1434, in invoke
+    return ctx.invoke(self.callback, **ctx.params)
+  File "/gpfs/milgram/project/hwang/imc33/conda_envs/aitc/lib/python3.8/site-packages/click/core.py", line 783, in invoke
+    return __callback(*args, **kwargs)
+  File "/gpfs/milgram/project/hwang/imc33/conda_envs/aitc/lib/python3.8/site-packages/click/decorators.py", line 33, in new_func
+    return f(get_current_context(), *args, **kwargs)
+  File "/gpfs/milgram/project/hwang/imc33/conda_envs/aitc/lib/python3.8/site-packages/papermill/cli.py", line 235, in papermill
+    execute_notebook(
+  File "/gpfs/milgram/project/hwang/imc33/conda_envs/aitc/lib/python3.8/site-packages/papermill/execute.py", line 131, in execute_notebook
+    raise_for_execution_errors(nb, output_path)
+  File "/gpfs/milgram/project/hwang/imc33/conda_envs/aitc/lib/python3.8/site-packages/papermill/execute.py", line 251, in raise_for_execution_errors
+    raise error
+papermill.exceptions.PapermillExecutionError: 
+---------------------------------------------------------------------------
+Exception encountered at "In [45]":
+---------------------------------------------------------------------------
+ValueError                                Traceback (most recent call last)
+Cell In[45], line 2
+      1 clf_xgb = xgb.XGBClassifier(objective='binary:logistic', missing=None, seed=42)
+----> 2 clf_xgb.fit(X_train_selected, 
+      3             y_train['viz_outcome_prolonged_los_yn'], 
+      4             verbose=True,
+      5             early_stopping_rounds=10,
+      6             eval_metric='aucpr',
+      7             eval_set=[(X_val_selected, y_val['viz_outcome_prolonged_los_yn'])])
+
+File /gpfs/milgram/project/hwang/imc33/conda_envs/aitc/lib/python3.8/site-packages/xgboost/core.py:730, in require_keyword_args.<locals>.throw_if.<locals>.inner_f(*args, **kwargs)
+    728 for k, arg in zip(sig.parameters, args):
+    729     kwargs[k] = arg
+--> 730 return func(**kwargs)
+
+File /gpfs/milgram/project/hwang/imc33/conda_envs/aitc/lib/python3.8/site-packages/xgboost/sklearn.py:1500, in XGBClassifier.fit(self, X, y, sample_weight, base_margin, eval_set, eval_metric, early_stopping_rounds, verbose, xgb_model, sample_weight_eval_set, base_margin_eval_set, feature_weights, callbacks)
+   1489     params["num_class"] = self.n_classes_
+   1491 (
+   1492     model,
+   1493     metric,
+   (...)
+   1498     xgb_model, eval_metric, params, early_stopping_rounds, callbacks
+   1499 )
+-> 1500 train_dmatrix, evals = _wrap_evaluation_matrices(
+   1501     missing=self.missing,
+   1502     X=X,
+   1503     y=y,
+   1504     group=None,
+   1505     qid=None,
+   1506     sample_weight=sample_weight,
+   1507     base_margin=base_margin,
+   1508     feature_weights=feature_weights,
+   1509     eval_set=eval_set,
+   1510     sample_weight_eval_set=sample_weight_eval_set,
+   1511     base_margin_eval_set=base_margin_eval_set,
+   1512     eval_group=None,
+   1513     eval_qid=None,
+   1514     create_dmatrix=self._create_dmatrix,
+   1515     enable_categorical=self.enable_categorical,
+   1516     feature_types=self.feature_types,
+   1517 )
+   1519 self._Booster = train(
+   1520     params,
+   1521     train_dmatrix,
+   (...)
+   1530     callbacks=callbacks,
+   1531 )
+   1533 if not callable(self.objective):
+
+File /gpfs/milgram/project/hwang/imc33/conda_envs/aitc/lib/python3.8/site-packages/xgboost/sklearn.py:521, in _wrap_evaluation_matrices(missing, X, y, group, qid, sample_weight, base_margin, feature_weights, eval_set, sample_weight_eval_set, base_margin_eval_set, eval_group, eval_qid, create_dmatrix, enable_categorical, feature_types)
+    501 def _wrap_evaluation_matrices(
+    502     missing: float,
+    503     X: Any,
+   (...)
+    517     feature_types: Optional[FeatureTypes],
+    518 ) -> Tuple[Any, List[Tuple[Any, str]]]:
+    519     """Convert array_like evaluation matrices into DMatrix.  Perform validation on the
+    520     way."""
+--> 521     train_dmatrix = create_dmatrix(
+    522         data=X,
+    523         label=y,
+    524         group=group,
+    525         qid=qid,
+    526         weight=sample_weight,
+    527         base_margin=base_margin,
+    528         feature_weights=feature_weights,
+    529         missing=missing,
+    530         enable_categorical=enable_categorical,
+    531         feature_types=feature_types,
+    532         ref=None,
+    533     )
+    535     n_validation = 0 if eval_set is None else len(eval_set)
+    537     def validate_or_none(meta: Optional[Sequence], name: str) -> Sequence:
+
+File /gpfs/milgram/project/hwang/imc33/conda_envs/aitc/lib/python3.8/site-packages/xgboost/sklearn.py:958, in XGBModel._create_dmatrix(self, ref, **kwargs)
+    956 if _can_use_qdm(self.tree_method) and self.booster != "gblinear":
+    957     try:
+--> 958         return QuantileDMatrix(
+    959             **kwargs, ref=ref, nthread=self.n_jobs, max_bin=self.max_bin
+    960         )
+    961     except TypeError:  # `QuantileDMatrix` supports lesser types than DMatrix
+    962         pass
+
+File /gpfs/milgram/project/hwang/imc33/conda_envs/aitc/lib/python3.8/site-packages/xgboost/core.py:730, in require_keyword_args.<locals>.throw_if.<locals>.inner_f(*args, **kwargs)
+    728 for k, arg in zip(sig.parameters, args):
+    729     kwargs[k] = arg
+--> 730 return func(**kwargs)
+
+File /gpfs/milgram/project/hwang/imc33/conda_envs/aitc/lib/python3.8/site-packages/xgboost/core.py:1529, in QuantileDMatrix.__init__(self, data, label, weight, base_margin, missing, silent, feature_names, feature_types, nthread, max_bin, ref, group, qid, label_lower_bound, label_upper_bound, feature_weights, enable_categorical, data_split_mode)
+   1509     if any(
+   1510         info is not None
+   1511         for info in (
+   (...)
+   1522         )
+   1523     ):
+   1524         raise ValueError(
+   1525             "If data iterator is used as input, data like label should be "
+   1526             "specified as batch argument."
+   1527         )
+-> 1529 self._init(
+   1530     data,
+   1531     ref=ref,
+   1532     label=label,
+   1533     weight=weight,
+   1534     base_margin=base_margin,
+   1535     group=group,
+   1536     qid=qid,
+   1537     label_lower_bound=label_lower_bound,
+   1538     label_upper_bound=label_upper_bound,
+   1539     feature_weights=feature_weights,
+   1540     feature_names=feature_names,
+   1541     feature_types=feature_types,
+   1542     enable_categorical=enable_categorical,
+   1543 )
+
+File /gpfs/milgram/project/hwang/imc33/conda_envs/aitc/lib/python3.8/site-packages/xgboost/core.py:1588, in QuantileDMatrix._init(self, data, ref, enable_categorical, **meta)
+   1576 config = make_jcargs(
+   1577     nthread=self.nthread, missing=self.missing, max_bin=self.max_bin
+   1578 )
+   1579 ret = _LIB.XGQuantileDMatrixCreateFromCallback(
+   1580     None,
+   1581     it.proxy.handle,
+   (...)
+   1586     ctypes.byref(handle),
+   1587 )
+-> 1588 it.reraise()
+   1589 # delay check_call to throw intermediate exception first
+   1590 _check_call(ret)
+
+File /gpfs/milgram/project/hwang/imc33/conda_envs/aitc/lib/python3.8/site-packages/xgboost/core.py:576, in DataIter.reraise(self)
+    574 exc = self._exception
+    575 self._exception = None
+--> 576 raise exc
+
+File /gpfs/milgram/project/hwang/imc33/conda_envs/aitc/lib/python3.8/site-packages/xgboost/core.py:557, in DataIter._handle_exception(self, fn, dft_ret)
+    554     return dft_ret
+    556 try:
+--> 557     return fn()
+    558 except Exception as e:  # pylint: disable=broad-except
+    559     # Defer the exception in order to return 0 and stop the iteration.
+    560     # Exception inside a ctype callback function has no effect except
+    561     # for printing to stderr (doesn't stop the execution).
+    562     tb = sys.exc_info()[2]
+
+File /gpfs/milgram/project/hwang/imc33/conda_envs/aitc/lib/python3.8/site-packages/xgboost/core.py:641, in DataIter._next_wrapper.<locals>.<lambda>()
+    638     self._data_ref = ref
+    640 # pylint: disable=not-callable
+--> 641 return self._handle_exception(lambda: self.next(input_data), 0)
+
+File /gpfs/milgram/project/hwang/imc33/conda_envs/aitc/lib/python3.8/site-packages/xgboost/data.py:1280, in SingleBatchInternalIter.next(self, input_data)
+   1278     return 0
+   1279 self.it += 1
+-> 1280 input_data(**self.kwargs)
+   1281 return 1
+
+File /gpfs/milgram/project/hwang/imc33/conda_envs/aitc/lib/python3.8/site-packages/xgboost/core.py:730, in require_keyword_args.<locals>.throw_if.<locals>.inner_f(*args, **kwargs)
+    728 for k, arg in zip(sig.parameters, args):
+    729     kwargs[k] = arg
+--> 730 return func(**kwargs)
+
+File /gpfs/milgram/project/hwang/imc33/conda_envs/aitc/lib/python3.8/site-packages/xgboost/core.py:624, in DataIter._next_wrapper.<locals>.input_data(data, feature_names, feature_types, **kwargs)
+    622     new, cat_codes, feature_names, feature_types = self._temporary_data
+    623 else:
+--> 624     new, cat_codes, feature_names, feature_types = _proxy_transform(
+    625         data,
+    626         feature_names,
+    627         feature_types,
+    628         self._enable_categorical,
+    629     )
+    630 # Stage the data, meta info are copied inside C++ MetaInfo.
+    631 self._temporary_data = (new, cat_codes, feature_names, feature_types)
+
+File /gpfs/milgram/project/hwang/imc33/conda_envs/aitc/lib/python3.8/site-packages/xgboost/data.py:1315, in _proxy_transform(data, feature_names, feature_types, enable_categorical)
+   1313     data = pd.DataFrame(data)
+   1314 if _is_pandas_df(data):
+-> 1315     arr, feature_names, feature_types = _transform_pandas_df(
+   1316         data, enable_categorical, feature_names, feature_types
+   1317     )
+   1318     arr, _ = _ensure_np_dtype(arr, arr.dtype)
+   1319     return arr, None, feature_names, feature_types
+
+File /gpfs/milgram/project/hwang/imc33/conda_envs/aitc/lib/python3.8/site-packages/xgboost/data.py:490, in _transform_pandas_df(data, enable_categorical, feature_names, feature_types, meta, meta_type)
+    483 for dtype in data.dtypes:
+    484     if not (
+    485         (dtype.name in _pandas_dtype_mapper)
+    486         or is_pd_sparse_dtype(dtype)
+    487         or (is_pd_cat_dtype(dtype) and enable_categorical)
+    488         or is_pa_ext_dtype(dtype)
+    489     ):
+--> 490         _invalid_dataframe_dtype(data)
+    491     if is_pa_ext_dtype(dtype):
+    492         pyarrow_extension = True
+
+File /gpfs/milgram/project/hwang/imc33/conda_envs/aitc/lib/python3.8/site-packages/xgboost/data.py:308, in _invalid_dataframe_dtype(data)
+    306 type_err = "DataFrame.dtypes for data must be int, float, bool or category."
+    307 msg = f"""{type_err} {_ENABLE_CAT_ERR} {err}"""
+--> 308 raise ValueError(msg)
+
+ValueError: DataFrame.dtypes for data must be int, float, bool or category. When categorical type is supplied, The experimental DMatrix parameter`enable_categorical` must be set to `True`.  Invalid columns:medical_record_number: object
+
+Input Notebook:  los_features_discharged_home_with_quintiles_07-08-2024.ipynb
+Output Notebook: los_features_discharged_home_with_quintiles_07-25-2024.ipynb
+Executing:   0%|          | 0/56 [00:00<?, ?cell/s]Executing notebook with kernel: python3
+Executing:   2%|▏         | 1/56 [00:00<00:53,  1.03cell/s]Executing:   4%|▎         | 2/56 [00:02<01:10,  1.30s/cell]Executing:   9%|▉         | 5/56 [00:03<00:29,  1.72cell/s]Executing:  20%|█▉        | 11/56 [00:03<00:09,  4.94cell/s]Executing:  27%|██▋       | 15/56 [00:03<00:05,  6.93cell/s]Executing:  32%|███▏      | 18/56 [00:03<00:04,  7.89cell/s]Executing:  39%|███▉      | 22/56 [00:04<00:03,  9.98cell/s]Executing:  41%|████      | 23/56 [00:19<00:03,  9.98cell/s]Executing:  43%|████▎     | 24/56 [00:38<01:54,  3.58s/cell]Executing:  52%|█████▏    | 29/56 [01:00<01:45,  3.91s/cell]Executing:  62%|██████▎   | 35/56 [01:12<01:06,  3.16s/cell]Executing:  70%|██████▉   | 39/56 [01:13<00:38,  2.27s/cell]Executing:  73%|███████▎  | 41/56 [01:13<00:29,  1.94s/cell]Executing:  77%|███████▋  | 43/56 [01:13<00:20,  1.57s/cell]Executing:  82%|████████▏ | 46/56 [01:14<00:11,  1.16s/cell]Executing:  88%|████████▊ | 49/56 [01:15<00:06,  1.09cell/s]Executing:  88%|████████▊ | 49/56 [01:15<00:10,  1.55s/cell]
+Traceback (most recent call last):
+  File "/gpfs/milgram/project/hwang/imc33/conda_envs/aitc/bin/papermill", line 10, in <module>
+    sys.exit(papermill())
+  File "/gpfs/milgram/project/hwang/imc33/conda_envs/aitc/lib/python3.8/site-packages/click/core.py", line 1157, in __call__
+    return self.main(*args, **kwargs)
+  File "/gpfs/milgram/project/hwang/imc33/conda_envs/aitc/lib/python3.8/site-packages/click/core.py", line 1078, in main
+    rv = self.invoke(ctx)
+  File "/gpfs/milgram/project/hwang/imc33/conda_envs/aitc/lib/python3.8/site-packages/click/core.py", line 1434, in invoke
+    return ctx.invoke(self.callback, **ctx.params)
+  File "/gpfs/milgram/project/hwang/imc33/conda_envs/aitc/lib/python3.8/site-packages/click/core.py", line 783, in invoke
+    return __callback(*args, **kwargs)
+  File "/gpfs/milgram/project/hwang/imc33/conda_envs/aitc/lib/python3.8/site-packages/click/decorators.py", line 33, in new_func
+    return f(get_current_context(), *args, **kwargs)
+  File "/gpfs/milgram/project/hwang/imc33/conda_envs/aitc/lib/python3.8/site-packages/papermill/cli.py", line 235, in papermill
+    execute_notebook(
+  File "/gpfs/milgram/project/hwang/imc33/conda_envs/aitc/lib/python3.8/site-packages/papermill/execute.py", line 131, in execute_notebook
+    raise_for_execution_errors(nb, output_path)
+  File "/gpfs/milgram/project/hwang/imc33/conda_envs/aitc/lib/python3.8/site-packages/papermill/execute.py", line 251, in raise_for_execution_errors
+    raise error
+papermill.exceptions.PapermillExecutionError: 
+---------------------------------------------------------------------------
+Exception encountered at "In [45]":
+---------------------------------------------------------------------------
+ValueError                                Traceback (most recent call last)
+Cell In[45], line 2
+      1 clf_xgb = xgb.XGBClassifier(objective='binary:logistic', missing=None, seed=42)
+----> 2 clf_xgb.fit(X_train_selected, 
+      3             y_train['viz_outcome_prolonged_los_yn'], 
+      4             verbose=True,
+      5             early_stopping_rounds=10,
+      6             eval_metric='aucpr',
+      7             eval_set=[(X_val_selected, y_val['viz_outcome_prolonged_los_yn'])])
+
+File /gpfs/milgram/project/hwang/imc33/conda_envs/aitc/lib/python3.8/site-packages/xgboost/core.py:730, in require_keyword_args.<locals>.throw_if.<locals>.inner_f(*args, **kwargs)
+    728 for k, arg in zip(sig.parameters, args):
+    729     kwargs[k] = arg
+--> 730 return func(**kwargs)
+
+File /gpfs/milgram/project/hwang/imc33/conda_envs/aitc/lib/python3.8/site-packages/xgboost/sklearn.py:1500, in XGBClassifier.fit(self, X, y, sample_weight, base_margin, eval_set, eval_metric, early_stopping_rounds, verbose, xgb_model, sample_weight_eval_set, base_margin_eval_set, feature_weights, callbacks)
+   1489     params["num_class"] = self.n_classes_
+   1491 (
+   1492     model,
+   1493     metric,
+   (...)
+   1498     xgb_model, eval_metric, params, early_stopping_rounds, callbacks
+   1499 )
+-> 1500 train_dmatrix, evals = _wrap_evaluation_matrices(
+   1501     missing=self.missing,
+   1502     X=X,
+   1503     y=y,
+   1504     group=None,
+   1505     qid=None,
+   1506     sample_weight=sample_weight,
+   1507     base_margin=base_margin,
+   1508     feature_weights=feature_weights,
+   1509     eval_set=eval_set,
+   1510     sample_weight_eval_set=sample_weight_eval_set,
+   1511     base_margin_eval_set=base_margin_eval_set,
+   1512     eval_group=None,
+   1513     eval_qid=None,
+   1514     create_dmatrix=self._create_dmatrix,
+   1515     enable_categorical=self.enable_categorical,
+   1516     feature_types=self.feature_types,
+   1517 )
+   1519 self._Booster = train(
+   1520     params,
+   1521     train_dmatrix,
+   (...)
+   1530     callbacks=callbacks,
+   1531 )
+   1533 if not callable(self.objective):
+
+File /gpfs/milgram/project/hwang/imc33/conda_envs/aitc/lib/python3.8/site-packages/xgboost/sklearn.py:521, in _wrap_evaluation_matrices(missing, X, y, group, qid, sample_weight, base_margin, feature_weights, eval_set, sample_weight_eval_set, base_margin_eval_set, eval_group, eval_qid, create_dmatrix, enable_categorical, feature_types)
+    501 def _wrap_evaluation_matrices(
+    502     missing: float,
+    503     X: Any,
+   (...)
+    517     feature_types: Optional[FeatureTypes],
+    518 ) -> Tuple[Any, List[Tuple[Any, str]]]:
+    519     """Convert array_like evaluation matrices into DMatrix.  Perform validation on the
+    520     way."""
+--> 521     train_dmatrix = create_dmatrix(
+    522         data=X,
+    523         label=y,
+    524         group=group,
+    525         qid=qid,
+    526         weight=sample_weight,
+    527         base_margin=base_margin,
+    528         feature_weights=feature_weights,
+    529         missing=missing,
+    530         enable_categorical=enable_categorical,
+    531         feature_types=feature_types,
+    532         ref=None,
+    533     )
+    535     n_validation = 0 if eval_set is None else len(eval_set)
+    537     def validate_or_none(meta: Optional[Sequence], name: str) -> Sequence:
+
+File /gpfs/milgram/project/hwang/imc33/conda_envs/aitc/lib/python3.8/site-packages/xgboost/sklearn.py:958, in XGBModel._create_dmatrix(self, ref, **kwargs)
+    956 if _can_use_qdm(self.tree_method) and self.booster != "gblinear":
+    957     try:
+--> 958         return QuantileDMatrix(
+    959             **kwargs, ref=ref, nthread=self.n_jobs, max_bin=self.max_bin
+    960         )
+    961     except TypeError:  # `QuantileDMatrix` supports lesser types than DMatrix
+    962         pass
+
+File /gpfs/milgram/project/hwang/imc33/conda_envs/aitc/lib/python3.8/site-packages/xgboost/core.py:730, in require_keyword_args.<locals>.throw_if.<locals>.inner_f(*args, **kwargs)
+    728 for k, arg in zip(sig.parameters, args):
+    729     kwargs[k] = arg
+--> 730 return func(**kwargs)
+
+File /gpfs/milgram/project/hwang/imc33/conda_envs/aitc/lib/python3.8/site-packages/xgboost/core.py:1529, in QuantileDMatrix.__init__(self, data, label, weight, base_margin, missing, silent, feature_names, feature_types, nthread, max_bin, ref, group, qid, label_lower_bound, label_upper_bound, feature_weights, enable_categorical, data_split_mode)
+   1509     if any(
+   1510         info is not None
+   1511         for info in (
+   (...)
+   1522         )
+   1523     ):
+   1524         raise ValueError(
+   1525             "If data iterator is used as input, data like label should be "
+   1526             "specified as batch argument."
+   1527         )
+-> 1529 self._init(
+   1530     data,
+   1531     ref=ref,
+   1532     label=label,
+   1533     weight=weight,
+   1534     base_margin=base_margin,
+   1535     group=group,
+   1536     qid=qid,
+   1537     label_lower_bound=label_lower_bound,
+   1538     label_upper_bound=label_upper_bound,
+   1539     feature_weights=feature_weights,
+   1540     feature_names=feature_names,
+   1541     feature_types=feature_types,
+   1542     enable_categorical=enable_categorical,
+   1543 )
+
+File /gpfs/milgram/project/hwang/imc33/conda_envs/aitc/lib/python3.8/site-packages/xgboost/core.py:1588, in QuantileDMatrix._init(self, data, ref, enable_categorical, **meta)
+   1576 config = make_jcargs(
+   1577     nthread=self.nthread, missing=self.missing, max_bin=self.max_bin
+   1578 )
+   1579 ret = _LIB.XGQuantileDMatrixCreateFromCallback(
+   1580     None,
+   1581     it.proxy.handle,
+   (...)
+   1586     ctypes.byref(handle),
+   1587 )
+-> 1588 it.reraise()
+   1589 # delay check_call to throw intermediate exception first
+   1590 _check_call(ret)
+
+File /gpfs/milgram/project/hwang/imc33/conda_envs/aitc/lib/python3.8/site-packages/xgboost/core.py:576, in DataIter.reraise(self)
+    574 exc = self._exception
+    575 self._exception = None
+--> 576 raise exc
+
+File /gpfs/milgram/project/hwang/imc33/conda_envs/aitc/lib/python3.8/site-packages/xgboost/core.py:557, in DataIter._handle_exception(self, fn, dft_ret)
+    554     return dft_ret
+    556 try:
+--> 557     return fn()
+    558 except Exception as e:  # pylint: disable=broad-except
+    559     # Defer the exception in order to return 0 and stop the iteration.
+    560     # Exception inside a ctype callback function has no effect except
+    561     # for printing to stderr (doesn't stop the execution).
+    562     tb = sys.exc_info()[2]
+
+File /gpfs/milgram/project/hwang/imc33/conda_envs/aitc/lib/python3.8/site-packages/xgboost/core.py:641, in DataIter._next_wrapper.<locals>.<lambda>()
+    638     self._data_ref = ref
+    640 # pylint: disable=not-callable
+--> 641 return self._handle_exception(lambda: self.next(input_data), 0)
+
+File /gpfs/milgram/project/hwang/imc33/conda_envs/aitc/lib/python3.8/site-packages/xgboost/data.py:1280, in SingleBatchInternalIter.next(self, input_data)
+   1278     return 0
+   1279 self.it += 1
+-> 1280 input_data(**self.kwargs)
+   1281 return 1
+
+File /gpfs/milgram/project/hwang/imc33/conda_envs/aitc/lib/python3.8/site-packages/xgboost/core.py:730, in require_keyword_args.<locals>.throw_if.<locals>.inner_f(*args, **kwargs)
+    728 for k, arg in zip(sig.parameters, args):
+    729     kwargs[k] = arg
+--> 730 return func(**kwargs)
+
+File /gpfs/milgram/project/hwang/imc33/conda_envs/aitc/lib/python3.8/site-packages/xgboost/core.py:624, in DataIter._next_wrapper.<locals>.input_data(data, feature_names, feature_types, **kwargs)
+    622     new, cat_codes, feature_names, feature_types = self._temporary_data
+    623 else:
+--> 624     new, cat_codes, feature_names, feature_types = _proxy_transform(
+    625         data,
+    626         feature_names,
+    627         feature_types,
+    628         self._enable_categorical,
+    629     )
+    630 # Stage the data, meta info are copied inside C++ MetaInfo.
+    631 self._temporary_data = (new, cat_codes, feature_names, feature_types)
+
+File /gpfs/milgram/project/hwang/imc33/conda_envs/aitc/lib/python3.8/site-packages/xgboost/data.py:1315, in _proxy_transform(data, feature_names, feature_types, enable_categorical)
+   1313     data = pd.DataFrame(data)
+   1314 if _is_pandas_df(data):
+-> 1315     arr, feature_names, feature_types = _transform_pandas_df(
+   1316         data, enable_categorical, feature_names, feature_types
+   1317     )
+   1318     arr, _ = _ensure_np_dtype(arr, arr.dtype)
+   1319     return arr, None, feature_names, feature_types
+
+File /gpfs/milgram/project/hwang/imc33/conda_envs/aitc/lib/python3.8/site-packages/xgboost/data.py:490, in _transform_pandas_df(data, enable_categorical, feature_names, feature_types, meta, meta_type)
+    483 for dtype in data.dtypes:
+    484     if not (
+    485         (dtype.name in _pandas_dtype_mapper)
+    486         or is_pd_sparse_dtype(dtype)
+    487         or (is_pd_cat_dtype(dtype) and enable_categorical)
+    488         or is_pa_ext_dtype(dtype)
+    489     ):
+--> 490         _invalid_dataframe_dtype(data)
+    491     if is_pa_ext_dtype(dtype):
+    492         pyarrow_extension = True
+
+File /gpfs/milgram/project/hwang/imc33/conda_envs/aitc/lib/python3.8/site-packages/xgboost/data.py:308, in _invalid_dataframe_dtype(data)
+    306 type_err = "DataFrame.dtypes for data must be int, float, bool or category."
+    307 msg = f"""{type_err} {_ENABLE_CAT_ERR} {err}"""
+--> 308 raise ValueError(msg)
+
+ValueError: DataFrame.dtypes for data must be int, float, bool or category. When categorical type is supplied, The experimental DMatrix parameter`enable_categorical` must be set to `True`.  Invalid columns:medical_record_number: object
+
+Input Notebook:  los_features_discharged_home_wo_quintiles_07-08-2024.ipynb
+Output Notebook: los_features_discharged_home_wo_quintiles_07-25-2024.ipynb
+Executing:   0%|          | 0/56 [00:00<?, ?cell/s]Executing notebook with kernel: python3
+Executing:   2%|▏         | 1/56 [00:01<00:58,  1.06s/cell]Executing:   4%|▎         | 2/56 [00:02<01:11,  1.33s/cell]Executing:   9%|▉         | 5/56 [00:03<00:29,  1.70cell/s]Executing:  21%|██▏       | 12/56 [00:03<00:08,  5.39cell/s]Executing:  27%|██▋       | 15/56 [00:03<00:06,  6.68cell/s]Executing:  34%|███▍      | 19/56 [00:03<00:03,  9.53cell/s]Executing:  41%|████      | 23/56 [00:03<00:02, 12.83cell/s]Executing:  48%|████▊     | 27/56 [00:04<00:03,  7.98cell/s]Executing:  54%|█████▎    | 30/56 [00:09<00:11,  2.19cell/s]Executing:  62%|██████▎   | 35/56 [00:16<00:17,  1.19cell/s]Executing:  70%|██████▉   | 39/56 [00:16<00:10,  1.68cell/s]Executing:  73%|███████▎  | 41/56 [00:17<00:08,  1.84cell/s]Executing:  77%|███████▋  | 43/56 [00:17<00:05,  2.24cell/s]Executing:  82%|████████▏ | 46/56 [00:17<00:03,  2.97cell/s]Executing:  88%|████████▊ | 49/56 [00:18<00:02,  2.89cell/s]Executing:  88%|████████▊ | 49/56 [00:19<00:02,  2.56cell/s]
+Traceback (most recent call last):
+  File "/gpfs/milgram/project/hwang/imc33/conda_envs/aitc/bin/papermill", line 10, in <module>
+    sys.exit(papermill())
+  File "/gpfs/milgram/project/hwang/imc33/conda_envs/aitc/lib/python3.8/site-packages/click/core.py", line 1157, in __call__
+    return self.main(*args, **kwargs)
+  File "/gpfs/milgram/project/hwang/imc33/conda_envs/aitc/lib/python3.8/site-packages/click/core.py", line 1078, in main
+    rv = self.invoke(ctx)
+  File "/gpfs/milgram/project/hwang/imc33/conda_envs/aitc/lib/python3.8/site-packages/click/core.py", line 1434, in invoke
+    return ctx.invoke(self.callback, **ctx.params)
+  File "/gpfs/milgram/project/hwang/imc33/conda_envs/aitc/lib/python3.8/site-packages/click/core.py", line 783, in invoke
+    return __callback(*args, **kwargs)
+  File "/gpfs/milgram/project/hwang/imc33/conda_envs/aitc/lib/python3.8/site-packages/click/decorators.py", line 33, in new_func
+    return f(get_current_context(), *args, **kwargs)
+  File "/gpfs/milgram/project/hwang/imc33/conda_envs/aitc/lib/python3.8/site-packages/papermill/cli.py", line 235, in papermill
+    execute_notebook(
+  File "/gpfs/milgram/project/hwang/imc33/conda_envs/aitc/lib/python3.8/site-packages/papermill/execute.py", line 131, in execute_notebook
+    raise_for_execution_errors(nb, output_path)
+  File "/gpfs/milgram/project/hwang/imc33/conda_envs/aitc/lib/python3.8/site-packages/papermill/execute.py", line 251, in raise_for_execution_errors
+    raise error
+papermill.exceptions.PapermillExecutionError: 
+---------------------------------------------------------------------------
+Exception encountered at "In [45]":
+---------------------------------------------------------------------------
+ValueError                                Traceback (most recent call last)
+Cell In[45], line 2
+      1 clf_xgb = xgb.XGBClassifier(objective='binary:logistic', missing=None, seed=42)
+----> 2 clf_xgb.fit(X_train_selected, 
+      3             y_train['viz_outcome_prolonged_los_yn'], 
+      4             verbose=True,
+      5             early_stopping_rounds=10,
+      6             eval_metric='aucpr',
+      7             eval_set=[(X_val_selected, y_val['viz_outcome_prolonged_los_yn'])])
+
+File /gpfs/milgram/project/hwang/imc33/conda_envs/aitc/lib/python3.8/site-packages/xgboost/core.py:730, in require_keyword_args.<locals>.throw_if.<locals>.inner_f(*args, **kwargs)
+    728 for k, arg in zip(sig.parameters, args):
+    729     kwargs[k] = arg
+--> 730 return func(**kwargs)
+
+File /gpfs/milgram/project/hwang/imc33/conda_envs/aitc/lib/python3.8/site-packages/xgboost/sklearn.py:1500, in XGBClassifier.fit(self, X, y, sample_weight, base_margin, eval_set, eval_metric, early_stopping_rounds, verbose, xgb_model, sample_weight_eval_set, base_margin_eval_set, feature_weights, callbacks)
+   1489     params["num_class"] = self.n_classes_
+   1491 (
+   1492     model,
+   1493     metric,
+   (...)
+   1498     xgb_model, eval_metric, params, early_stopping_rounds, callbacks
+   1499 )
+-> 1500 train_dmatrix, evals = _wrap_evaluation_matrices(
+   1501     missing=self.missing,
+   1502     X=X,
+   1503     y=y,
+   1504     group=None,
+   1505     qid=None,
+   1506     sample_weight=sample_weight,
+   1507     base_margin=base_margin,
+   1508     feature_weights=feature_weights,
+   1509     eval_set=eval_set,
+   1510     sample_weight_eval_set=sample_weight_eval_set,
+   1511     base_margin_eval_set=base_margin_eval_set,
+   1512     eval_group=None,
+   1513     eval_qid=None,
+   1514     create_dmatrix=self._create_dmatrix,
+   1515     enable_categorical=self.enable_categorical,
+   1516     feature_types=self.feature_types,
+   1517 )
+   1519 self._Booster = train(
+   1520     params,
+   1521     train_dmatrix,
+   (...)
+   1530     callbacks=callbacks,
+   1531 )
+   1533 if not callable(self.objective):
+
+File /gpfs/milgram/project/hwang/imc33/conda_envs/aitc/lib/python3.8/site-packages/xgboost/sklearn.py:521, in _wrap_evaluation_matrices(missing, X, y, group, qid, sample_weight, base_margin, feature_weights, eval_set, sample_weight_eval_set, base_margin_eval_set, eval_group, eval_qid, create_dmatrix, enable_categorical, feature_types)
+    501 def _wrap_evaluation_matrices(
+    502     missing: float,
+    503     X: Any,
+   (...)
+    517     feature_types: Optional[FeatureTypes],
+    518 ) -> Tuple[Any, List[Tuple[Any, str]]]:
+    519     """Convert array_like evaluation matrices into DMatrix.  Perform validation on the
+    520     way."""
+--> 521     train_dmatrix = create_dmatrix(
+    522         data=X,
+    523         label=y,
+    524         group=group,
+    525         qid=qid,
+    526         weight=sample_weight,
+    527         base_margin=base_margin,
+    528         feature_weights=feature_weights,
+    529         missing=missing,
+    530         enable_categorical=enable_categorical,
+    531         feature_types=feature_types,
+    532         ref=None,
+    533     )
+    535     n_validation = 0 if eval_set is None else len(eval_set)
+    537     def validate_or_none(meta: Optional[Sequence], name: str) -> Sequence:
+
+File /gpfs/milgram/project/hwang/imc33/conda_envs/aitc/lib/python3.8/site-packages/xgboost/sklearn.py:958, in XGBModel._create_dmatrix(self, ref, **kwargs)
+    956 if _can_use_qdm(self.tree_method) and self.booster != "gblinear":
+    957     try:
+--> 958         return QuantileDMatrix(
+    959             **kwargs, ref=ref, nthread=self.n_jobs, max_bin=self.max_bin
+    960         )
+    961     except TypeError:  # `QuantileDMatrix` supports lesser types than DMatrix
+    962         pass
+
+File /gpfs/milgram/project/hwang/imc33/conda_envs/aitc/lib/python3.8/site-packages/xgboost/core.py:730, in require_keyword_args.<locals>.throw_if.<locals>.inner_f(*args, **kwargs)
+    728 for k, arg in zip(sig.parameters, args):
+    729     kwargs[k] = arg
+--> 730 return func(**kwargs)
+
+File /gpfs/milgram/project/hwang/imc33/conda_envs/aitc/lib/python3.8/site-packages/xgboost/core.py:1529, in QuantileDMatrix.__init__(self, data, label, weight, base_margin, missing, silent, feature_names, feature_types, nthread, max_bin, ref, group, qid, label_lower_bound, label_upper_bound, feature_weights, enable_categorical, data_split_mode)
+   1509     if any(
+   1510         info is not None
+   1511         for info in (
+   (...)
+   1522         )
+   1523     ):
+   1524         raise ValueError(
+   1525             "If data iterator is used as input, data like label should be "
+   1526             "specified as batch argument."
+   1527         )
+-> 1529 self._init(
+   1530     data,
+   1531     ref=ref,
+   1532     label=label,
+   1533     weight=weight,
+   1534     base_margin=base_margin,
+   1535     group=group,
+   1536     qid=qid,
+   1537     label_lower_bound=label_lower_bound,
+   1538     label_upper_bound=label_upper_bound,
+   1539     feature_weights=feature_weights,
+   1540     feature_names=feature_names,
+   1541     feature_types=feature_types,
+   1542     enable_categorical=enable_categorical,
+   1543 )
+
+File /gpfs/milgram/project/hwang/imc33/conda_envs/aitc/lib/python3.8/site-packages/xgboost/core.py:1588, in QuantileDMatrix._init(self, data, ref, enable_categorical, **meta)
+   1576 config = make_jcargs(
+   1577     nthread=self.nthread, missing=self.missing, max_bin=self.max_bin
+   1578 )
+   1579 ret = _LIB.XGQuantileDMatrixCreateFromCallback(
+   1580     None,
+   1581     it.proxy.handle,
+   (...)
+   1586     ctypes.byref(handle),
+   1587 )
+-> 1588 it.reraise()
+   1589 # delay check_call to throw intermediate exception first
+   1590 _check_call(ret)
+
+File /gpfs/milgram/project/hwang/imc33/conda_envs/aitc/lib/python3.8/site-packages/xgboost/core.py:576, in DataIter.reraise(self)
+    574 exc = self._exception
+    575 self._exception = None
+--> 576 raise exc
+
+File /gpfs/milgram/project/hwang/imc33/conda_envs/aitc/lib/python3.8/site-packages/xgboost/core.py:557, in DataIter._handle_exception(self, fn, dft_ret)
+    554     return dft_ret
+    556 try:
+--> 557     return fn()
+    558 except Exception as e:  # pylint: disable=broad-except
+    559     # Defer the exception in order to return 0 and stop the iteration.
+    560     # Exception inside a ctype callback function has no effect except
+    561     # for printing to stderr (doesn't stop the execution).
+    562     tb = sys.exc_info()[2]
+
+File /gpfs/milgram/project/hwang/imc33/conda_envs/aitc/lib/python3.8/site-packages/xgboost/core.py:641, in DataIter._next_wrapper.<locals>.<lambda>()
+    638     self._data_ref = ref
+    640 # pylint: disable=not-callable
+--> 641 return self._handle_exception(lambda: self.next(input_data), 0)
+
+File /gpfs/milgram/project/hwang/imc33/conda_envs/aitc/lib/python3.8/site-packages/xgboost/data.py:1280, in SingleBatchInternalIter.next(self, input_data)
+   1278     return 0
+   1279 self.it += 1
+-> 1280 input_data(**self.kwargs)
+   1281 return 1
+
+File /gpfs/milgram/project/hwang/imc33/conda_envs/aitc/lib/python3.8/site-packages/xgboost/core.py:730, in require_keyword_args.<locals>.throw_if.<locals>.inner_f(*args, **kwargs)
+    728 for k, arg in zip(sig.parameters, args):
+    729     kwargs[k] = arg
+--> 730 return func(**kwargs)
+
+File /gpfs/milgram/project/hwang/imc33/conda_envs/aitc/lib/python3.8/site-packages/xgboost/core.py:624, in DataIter._next_wrapper.<locals>.input_data(data, feature_names, feature_types, **kwargs)
+    622     new, cat_codes, feature_names, feature_types = self._temporary_data
+    623 else:
+--> 624     new, cat_codes, feature_names, feature_types = _proxy_transform(
+    625         data,
+    626         feature_names,
+    627         feature_types,
+    628         self._enable_categorical,
+    629     )
+    630 # Stage the data, meta info are copied inside C++ MetaInfo.
+    631 self._temporary_data = (new, cat_codes, feature_names, feature_types)
+
+File /gpfs/milgram/project/hwang/imc33/conda_envs/aitc/lib/python3.8/site-packages/xgboost/data.py:1315, in _proxy_transform(data, feature_names, feature_types, enable_categorical)
+   1313     data = pd.DataFrame(data)
+   1314 if _is_pandas_df(data):
+-> 1315     arr, feature_names, feature_types = _transform_pandas_df(
+   1316         data, enable_categorical, feature_names, feature_types
+   1317     )
+   1318     arr, _ = _ensure_np_dtype(arr, arr.dtype)
+   1319     return arr, None, feature_names, feature_types
+
+File /gpfs/milgram/project/hwang/imc33/conda_envs/aitc/lib/python3.8/site-packages/xgboost/data.py:490, in _transform_pandas_df(data, enable_categorical, feature_names, feature_types, meta, meta_type)
+    483 for dtype in data.dtypes:
+    484     if not (
+    485         (dtype.name in _pandas_dtype_mapper)
+    486         or is_pd_sparse_dtype(dtype)
+    487         or (is_pd_cat_dtype(dtype) and enable_categorical)
+    488         or is_pa_ext_dtype(dtype)
+    489     ):
+--> 490         _invalid_dataframe_dtype(data)
+    491     if is_pa_ext_dtype(dtype):
+    492         pyarrow_extension = True
+
+File /gpfs/milgram/project/hwang/imc33/conda_envs/aitc/lib/python3.8/site-packages/xgboost/data.py:308, in _invalid_dataframe_dtype(data)
+    306 type_err = "DataFrame.dtypes for data must be int, float, bool or category."
+    307 msg = f"""{type_err} {_ENABLE_CAT_ERR} {err}"""
+--> 308 raise ValueError(msg)
+
+ValueError: DataFrame.dtypes for data must be int, float, bool or category. When categorical type is supplied, The experimental DMatrix parameter`enable_categorical` must be set to `True`.  Invalid columns:medical_record_number: object
+
+Input Notebook:  los_features_hf_with_quintiles_07-08-2024.ipynb
+Output Notebook: los_features_hf_with_quintiles_07-25-2024.ipynb
+Executing:   0%|          | 0/53 [00:00<?, ?cell/s]Executing notebook with kernel: python3
+Executing:   2%|▏         | 1/53 [00:00<00:48,  1.07cell/s]Executing:   4%|▍         | 2/53 [00:02<01:04,  1.27s/cell]Executing:   9%|▉         | 5/53 [00:03<00:27,  1.73cell/s]Executing:  21%|██        | 11/53 [00:03<00:08,  4.97cell/s]Executing:  26%|██▋       | 14/53 [00:03<00:06,  5.83cell/s]Executing:  36%|███▌      | 19/53 [00:03<00:03,  8.82cell/s]Executing:  38%|███▊      | 20/53 [00:19<00:03,  8.82cell/s]Executing:  40%|███▉      | 21/53 [00:32<01:33,  2.91s/cell]Executing:  49%|████▉     | 26/53 [00:46<01:17,  2.86s/cell]Executing:  60%|██████    | 32/53 [00:55<00:48,  2.33s/cell]Executing:  68%|██████▊   | 36/53 [00:55<00:28,  1.68s/cell]Executing:  72%|███████▏  | 38/53 [00:56<00:21,  1.44s/cell]Executing:  75%|███████▌  | 40/53 [00:56<00:15,  1.18s/cell]Executing:  81%|████████  | 43/53 [00:56<00:08,  1.18cell/s]Executing:  87%|████████▋ | 46/53 [00:57<00:04,  1.42cell/s]Executing:  87%|████████▋ | 46/53 [00:58<00:08,  1.27s/cell]
+Traceback (most recent call last):
+  File "/gpfs/milgram/project/hwang/imc33/conda_envs/aitc/bin/papermill", line 10, in <module>
+    sys.exit(papermill())
+  File "/gpfs/milgram/project/hwang/imc33/conda_envs/aitc/lib/python3.8/site-packages/click/core.py", line 1157, in __call__
+    return self.main(*args, **kwargs)
+  File "/gpfs/milgram/project/hwang/imc33/conda_envs/aitc/lib/python3.8/site-packages/click/core.py", line 1078, in main
+    rv = self.invoke(ctx)
+  File "/gpfs/milgram/project/hwang/imc33/conda_envs/aitc/lib/python3.8/site-packages/click/core.py", line 1434, in invoke
+    return ctx.invoke(self.callback, **ctx.params)
+  File "/gpfs/milgram/project/hwang/imc33/conda_envs/aitc/lib/python3.8/site-packages/click/core.py", line 783, in invoke
+    return __callback(*args, **kwargs)
+  File "/gpfs/milgram/project/hwang/imc33/conda_envs/aitc/lib/python3.8/site-packages/click/decorators.py", line 33, in new_func
+    return f(get_current_context(), *args, **kwargs)
+  File "/gpfs/milgram/project/hwang/imc33/conda_envs/aitc/lib/python3.8/site-packages/papermill/cli.py", line 235, in papermill
+    execute_notebook(
+  File "/gpfs/milgram/project/hwang/imc33/conda_envs/aitc/lib/python3.8/site-packages/papermill/execute.py", line 131, in execute_notebook
+    raise_for_execution_errors(nb, output_path)
+  File "/gpfs/milgram/project/hwang/imc33/conda_envs/aitc/lib/python3.8/site-packages/papermill/execute.py", line 251, in raise_for_execution_errors
+    raise error
+papermill.exceptions.PapermillExecutionError: 
+---------------------------------------------------------------------------
+Exception encountered at "In [41]":
+---------------------------------------------------------------------------
+ValueError                                Traceback (most recent call last)
+Cell In[41], line 2
+      1 clf_xgb = xgb.XGBClassifier(objective='binary:logistic', missing=None, seed=42)
+----> 2 clf_xgb.fit(X_train_selected, 
+      3             y_train['viz_outcome_prolonged_los_yn'], 
+      4             verbose=True,
+      5             early_stopping_rounds=10,
+      6             eval_metric='aucpr',
+      7             eval_set=[(X_val_selected, y_val['viz_outcome_prolonged_los_yn'])])
+
+File /gpfs/milgram/project/hwang/imc33/conda_envs/aitc/lib/python3.8/site-packages/xgboost/core.py:730, in require_keyword_args.<locals>.throw_if.<locals>.inner_f(*args, **kwargs)
+    728 for k, arg in zip(sig.parameters, args):
+    729     kwargs[k] = arg
+--> 730 return func(**kwargs)
+
+File /gpfs/milgram/project/hwang/imc33/conda_envs/aitc/lib/python3.8/site-packages/xgboost/sklearn.py:1500, in XGBClassifier.fit(self, X, y, sample_weight, base_margin, eval_set, eval_metric, early_stopping_rounds, verbose, xgb_model, sample_weight_eval_set, base_margin_eval_set, feature_weights, callbacks)
+   1489     params["num_class"] = self.n_classes_
+   1491 (
+   1492     model,
+   1493     metric,
+   (...)
+   1498     xgb_model, eval_metric, params, early_stopping_rounds, callbacks
+   1499 )
+-> 1500 train_dmatrix, evals = _wrap_evaluation_matrices(
+   1501     missing=self.missing,
+   1502     X=X,
+   1503     y=y,
+   1504     group=None,
+   1505     qid=None,
+   1506     sample_weight=sample_weight,
+   1507     base_margin=base_margin,
+   1508     feature_weights=feature_weights,
+   1509     eval_set=eval_set,
+   1510     sample_weight_eval_set=sample_weight_eval_set,
+   1511     base_margin_eval_set=base_margin_eval_set,
+   1512     eval_group=None,
+   1513     eval_qid=None,
+   1514     create_dmatrix=self._create_dmatrix,
+   1515     enable_categorical=self.enable_categorical,
+   1516     feature_types=self.feature_types,
+   1517 )
+   1519 self._Booster = train(
+   1520     params,
+   1521     train_dmatrix,
+   (...)
+   1530     callbacks=callbacks,
+   1531 )
+   1533 if not callable(self.objective):
+
+File /gpfs/milgram/project/hwang/imc33/conda_envs/aitc/lib/python3.8/site-packages/xgboost/sklearn.py:521, in _wrap_evaluation_matrices(missing, X, y, group, qid, sample_weight, base_margin, feature_weights, eval_set, sample_weight_eval_set, base_margin_eval_set, eval_group, eval_qid, create_dmatrix, enable_categorical, feature_types)
+    501 def _wrap_evaluation_matrices(
+    502     missing: float,
+    503     X: Any,
+   (...)
+    517     feature_types: Optional[FeatureTypes],
+    518 ) -> Tuple[Any, List[Tuple[Any, str]]]:
+    519     """Convert array_like evaluation matrices into DMatrix.  Perform validation on the
+    520     way."""
+--> 521     train_dmatrix = create_dmatrix(
+    522         data=X,
+    523         label=y,
+    524         group=group,
+    525         qid=qid,
+    526         weight=sample_weight,
+    527         base_margin=base_margin,
+    528         feature_weights=feature_weights,
+    529         missing=missing,
+    530         enable_categorical=enable_categorical,
+    531         feature_types=feature_types,
+    532         ref=None,
+    533     )
+    535     n_validation = 0 if eval_set is None else len(eval_set)
+    537     def validate_or_none(meta: Optional[Sequence], name: str) -> Sequence:
+
+File /gpfs/milgram/project/hwang/imc33/conda_envs/aitc/lib/python3.8/site-packages/xgboost/sklearn.py:958, in XGBModel._create_dmatrix(self, ref, **kwargs)
+    956 if _can_use_qdm(self.tree_method) and self.booster != "gblinear":
+    957     try:
+--> 958         return QuantileDMatrix(
+    959             **kwargs, ref=ref, nthread=self.n_jobs, max_bin=self.max_bin
+    960         )
+    961     except TypeError:  # `QuantileDMatrix` supports lesser types than DMatrix
+    962         pass
+
+File /gpfs/milgram/project/hwang/imc33/conda_envs/aitc/lib/python3.8/site-packages/xgboost/core.py:730, in require_keyword_args.<locals>.throw_if.<locals>.inner_f(*args, **kwargs)
+    728 for k, arg in zip(sig.parameters, args):
+    729     kwargs[k] = arg
+--> 730 return func(**kwargs)
+
+File /gpfs/milgram/project/hwang/imc33/conda_envs/aitc/lib/python3.8/site-packages/xgboost/core.py:1529, in QuantileDMatrix.__init__(self, data, label, weight, base_margin, missing, silent, feature_names, feature_types, nthread, max_bin, ref, group, qid, label_lower_bound, label_upper_bound, feature_weights, enable_categorical, data_split_mode)
+   1509     if any(
+   1510         info is not None
+   1511         for info in (
+   (...)
+   1522         )
+   1523     ):
+   1524         raise ValueError(
+   1525             "If data iterator is used as input, data like label should be "
+   1526             "specified as batch argument."
+   1527         )
+-> 1529 self._init(
+   1530     data,
+   1531     ref=ref,
+   1532     label=label,
+   1533     weight=weight,
+   1534     base_margin=base_margin,
+   1535     group=group,
+   1536     qid=qid,
+   1537     label_lower_bound=label_lower_bound,
+   1538     label_upper_bound=label_upper_bound,
+   1539     feature_weights=feature_weights,
+   1540     feature_names=feature_names,
+   1541     feature_types=feature_types,
+   1542     enable_categorical=enable_categorical,
+   1543 )
+
+File /gpfs/milgram/project/hwang/imc33/conda_envs/aitc/lib/python3.8/site-packages/xgboost/core.py:1588, in QuantileDMatrix._init(self, data, ref, enable_categorical, **meta)
+   1576 config = make_jcargs(
+   1577     nthread=self.nthread, missing=self.missing, max_bin=self.max_bin
+   1578 )
+   1579 ret = _LIB.XGQuantileDMatrixCreateFromCallback(
+   1580     None,
+   1581     it.proxy.handle,
+   (...)
+   1586     ctypes.byref(handle),
+   1587 )
+-> 1588 it.reraise()
+   1589 # delay check_call to throw intermediate exception first
+   1590 _check_call(ret)
+
+File /gpfs/milgram/project/hwang/imc33/conda_envs/aitc/lib/python3.8/site-packages/xgboost/core.py:576, in DataIter.reraise(self)
+    574 exc = self._exception
+    575 self._exception = None
+--> 576 raise exc
+
+File /gpfs/milgram/project/hwang/imc33/conda_envs/aitc/lib/python3.8/site-packages/xgboost/core.py:557, in DataIter._handle_exception(self, fn, dft_ret)
+    554     return dft_ret
+    556 try:
+--> 557     return fn()
+    558 except Exception as e:  # pylint: disable=broad-except
+    559     # Defer the exception in order to return 0 and stop the iteration.
+    560     # Exception inside a ctype callback function has no effect except
+    561     # for printing to stderr (doesn't stop the execution).
+    562     tb = sys.exc_info()[2]
+
+File /gpfs/milgram/project/hwang/imc33/conda_envs/aitc/lib/python3.8/site-packages/xgboost/core.py:641, in DataIter._next_wrapper.<locals>.<lambda>()
+    638     self._data_ref = ref
+    640 # pylint: disable=not-callable
+--> 641 return self._handle_exception(lambda: self.next(input_data), 0)
+
+File /gpfs/milgram/project/hwang/imc33/conda_envs/aitc/lib/python3.8/site-packages/xgboost/data.py:1280, in SingleBatchInternalIter.next(self, input_data)
+   1278     return 0
+   1279 self.it += 1
+-> 1280 input_data(**self.kwargs)
+   1281 return 1
+
+File /gpfs/milgram/project/hwang/imc33/conda_envs/aitc/lib/python3.8/site-packages/xgboost/core.py:730, in require_keyword_args.<locals>.throw_if.<locals>.inner_f(*args, **kwargs)
+    728 for k, arg in zip(sig.parameters, args):
+    729     kwargs[k] = arg
+--> 730 return func(**kwargs)
+
+File /gpfs/milgram/project/hwang/imc33/conda_envs/aitc/lib/python3.8/site-packages/xgboost/core.py:624, in DataIter._next_wrapper.<locals>.input_data(data, feature_names, feature_types, **kwargs)
+    622     new, cat_codes, feature_names, feature_types = self._temporary_data
+    623 else:
+--> 624     new, cat_codes, feature_names, feature_types = _proxy_transform(
+    625         data,
+    626         feature_names,
+    627         feature_types,
+    628         self._enable_categorical,
+    629     )
+    630 # Stage the data, meta info are copied inside C++ MetaInfo.
+    631 self._temporary_data = (new, cat_codes, feature_names, feature_types)
+
+File /gpfs/milgram/project/hwang/imc33/conda_envs/aitc/lib/python3.8/site-packages/xgboost/data.py:1315, in _proxy_transform(data, feature_names, feature_types, enable_categorical)
+   1313     data = pd.DataFrame(data)
+   1314 if _is_pandas_df(data):
+-> 1315     arr, feature_names, feature_types = _transform_pandas_df(
+   1316         data, enable_categorical, feature_names, feature_types
+   1317     )
+   1318     arr, _ = _ensure_np_dtype(arr, arr.dtype)
+   1319     return arr, None, feature_names, feature_types
+
+File /gpfs/milgram/project/hwang/imc33/conda_envs/aitc/lib/python3.8/site-packages/xgboost/data.py:490, in _transform_pandas_df(data, enable_categorical, feature_names, feature_types, meta, meta_type)
+    483 for dtype in data.dtypes:
+    484     if not (
+    485         (dtype.name in _pandas_dtype_mapper)
+    486         or is_pd_sparse_dtype(dtype)
+    487         or (is_pd_cat_dtype(dtype) and enable_categorical)
+    488         or is_pa_ext_dtype(dtype)
+    489     ):
+--> 490         _invalid_dataframe_dtype(data)
+    491     if is_pa_ext_dtype(dtype):
+    492         pyarrow_extension = True
+
+File /gpfs/milgram/project/hwang/imc33/conda_envs/aitc/lib/python3.8/site-packages/xgboost/data.py:308, in _invalid_dataframe_dtype(data)
+    306 type_err = "DataFrame.dtypes for data must be int, float, bool or category."
+    307 msg = f"""{type_err} {_ENABLE_CAT_ERR} {err}"""
+--> 308 raise ValueError(msg)
+
+ValueError: DataFrame.dtypes for data must be int, float, bool or category. When categorical type is supplied, The experimental DMatrix parameter`enable_categorical` must be set to `True`.  Invalid columns:medical_record_number: object
+
+Input Notebook:  los_features_hf_wo_quintiles_07-08-2024.ipynb
+Output Notebook: los_features_hf_wo_quintiles_07-08-2024.ipynb
+Executing:   0%|          | 0/53 [00:00<?, ?cell/s]Executing notebook with kernel: python3
+Executing:   2%|▏         | 1/53 [00:00<00:49,  1.04cell/s]Executing:   4%|▍         | 2/53 [00:02<01:06,  1.30s/cell]Executing:   9%|▉         | 5/53 [00:03<00:28,  1.66cell/s]Executing:  21%|██        | 11/53 [00:03<00:08,  4.77cell/s]Executing:  26%|██▋       | 14/53 [00:03<00:06,  6.16cell/s]Executing:  38%|███▊      | 20/53 [00:03<00:03, 10.80cell/s]Executing:  45%|████▌     | 24/53 [00:04<00:03,  8.33cell/s]Executing:  51%|█████     | 27/53 [00:07<00:09,  2.78cell/s]Executing:  60%|██████    | 32/53 [00:13<00:13,  1.56cell/s]Executing:  68%|██████▊   | 36/53 [00:13<00:07,  2.19cell/s]Executing:  72%|███████▏  | 38/53 [00:14<00:06,  2.33cell/s]Executing:  75%|███████▌  | 40/53 [00:14<00:04,  2.81cell/s]Executing:  81%|████████  | 43/53 [00:14<00:02,  3.83cell/s]Executing:  85%|████████▍ | 45/53 [00:14<00:01,  4.64cell/s]Executing:  87%|████████▋ | 46/53 [00:15<00:02,  2.88cell/s]
+Traceback (most recent call last):
+  File "/gpfs/milgram/project/hwang/imc33/conda_envs/aitc/bin/papermill", line 10, in <module>
+    sys.exit(papermill())
+  File "/gpfs/milgram/project/hwang/imc33/conda_envs/aitc/lib/python3.8/site-packages/click/core.py", line 1157, in __call__
+    return self.main(*args, **kwargs)
+  File "/gpfs/milgram/project/hwang/imc33/conda_envs/aitc/lib/python3.8/site-packages/click/core.py", line 1078, in main
+    rv = self.invoke(ctx)
+  File "/gpfs/milgram/project/hwang/imc33/conda_envs/aitc/lib/python3.8/site-packages/click/core.py", line 1434, in invoke
+    return ctx.invoke(self.callback, **ctx.params)
+  File "/gpfs/milgram/project/hwang/imc33/conda_envs/aitc/lib/python3.8/site-packages/click/core.py", line 783, in invoke
+    return __callback(*args, **kwargs)
+  File "/gpfs/milgram/project/hwang/imc33/conda_envs/aitc/lib/python3.8/site-packages/click/decorators.py", line 33, in new_func
+    return f(get_current_context(), *args, **kwargs)
+  File "/gpfs/milgram/project/hwang/imc33/conda_envs/aitc/lib/python3.8/site-packages/papermill/cli.py", line 235, in papermill
+    execute_notebook(
+  File "/gpfs/milgram/project/hwang/imc33/conda_envs/aitc/lib/python3.8/site-packages/papermill/execute.py", line 131, in execute_notebook
+    raise_for_execution_errors(nb, output_path)
+  File "/gpfs/milgram/project/hwang/imc33/conda_envs/aitc/lib/python3.8/site-packages/papermill/execute.py", line 251, in raise_for_execution_errors
+    raise error
+papermill.exceptions.PapermillExecutionError: 
+---------------------------------------------------------------------------
+Exception encountered at "In [41]":
+---------------------------------------------------------------------------
+ValueError                                Traceback (most recent call last)
+Cell In[41], line 2
+      1 clf_xgb = xgb.XGBClassifier(objective='binary:logistic', missing=None, seed=42)
+----> 2 clf_xgb.fit(X_train_selected, 
+      3             y_train['viz_outcome_prolonged_los_yn'], 
+      4             verbose=True,
+      5             early_stopping_rounds=10,
+      6             eval_metric='aucpr',
+      7             eval_set=[(X_val_selected, y_val['viz_outcome_prolonged_los_yn'])])
+
+File /gpfs/milgram/project/hwang/imc33/conda_envs/aitc/lib/python3.8/site-packages/xgboost/core.py:730, in require_keyword_args.<locals>.throw_if.<locals>.inner_f(*args, **kwargs)
+    728 for k, arg in zip(sig.parameters, args):
+    729     kwargs[k] = arg
+--> 730 return func(**kwargs)
+
+File /gpfs/milgram/project/hwang/imc33/conda_envs/aitc/lib/python3.8/site-packages/xgboost/sklearn.py:1500, in XGBClassifier.fit(self, X, y, sample_weight, base_margin, eval_set, eval_metric, early_stopping_rounds, verbose, xgb_model, sample_weight_eval_set, base_margin_eval_set, feature_weights, callbacks)
+   1489     params["num_class"] = self.n_classes_
+   1491 (
+   1492     model,
+   1493     metric,
+   (...)
+   1498     xgb_model, eval_metric, params, early_stopping_rounds, callbacks
+   1499 )
+-> 1500 train_dmatrix, evals = _wrap_evaluation_matrices(
+   1501     missing=self.missing,
+   1502     X=X,
+   1503     y=y,
+   1504     group=None,
+   1505     qid=None,
+   1506     sample_weight=sample_weight,
+   1507     base_margin=base_margin,
+   1508     feature_weights=feature_weights,
+   1509     eval_set=eval_set,
+   1510     sample_weight_eval_set=sample_weight_eval_set,
+   1511     base_margin_eval_set=base_margin_eval_set,
+   1512     eval_group=None,
+   1513     eval_qid=None,
+   1514     create_dmatrix=self._create_dmatrix,
+   1515     enable_categorical=self.enable_categorical,
+   1516     feature_types=self.feature_types,
+   1517 )
+   1519 self._Booster = train(
+   1520     params,
+   1521     train_dmatrix,
+   (...)
+   1530     callbacks=callbacks,
+   1531 )
+   1533 if not callable(self.objective):
+
+File /gpfs/milgram/project/hwang/imc33/conda_envs/aitc/lib/python3.8/site-packages/xgboost/sklearn.py:521, in _wrap_evaluation_matrices(missing, X, y, group, qid, sample_weight, base_margin, feature_weights, eval_set, sample_weight_eval_set, base_margin_eval_set, eval_group, eval_qid, create_dmatrix, enable_categorical, feature_types)
+    501 def _wrap_evaluation_matrices(
+    502     missing: float,
+    503     X: Any,
+   (...)
+    517     feature_types: Optional[FeatureTypes],
+    518 ) -> Tuple[Any, List[Tuple[Any, str]]]:
+    519     """Convert array_like evaluation matrices into DMatrix.  Perform validation on the
+    520     way."""
+--> 521     train_dmatrix = create_dmatrix(
+    522         data=X,
+    523         label=y,
+    524         group=group,
+    525         qid=qid,
+    526         weight=sample_weight,
+    527         base_margin=base_margin,
+    528         feature_weights=feature_weights,
+    529         missing=missing,
+    530         enable_categorical=enable_categorical,
+    531         feature_types=feature_types,
+    532         ref=None,
+    533     )
+    535     n_validation = 0 if eval_set is None else len(eval_set)
+    537     def validate_or_none(meta: Optional[Sequence], name: str) -> Sequence:
+
+File /gpfs/milgram/project/hwang/imc33/conda_envs/aitc/lib/python3.8/site-packages/xgboost/sklearn.py:958, in XGBModel._create_dmatrix(self, ref, **kwargs)
+    956 if _can_use_qdm(self.tree_method) and self.booster != "gblinear":
+    957     try:
+--> 958         return QuantileDMatrix(
+    959             **kwargs, ref=ref, nthread=self.n_jobs, max_bin=self.max_bin
+    960         )
+    961     except TypeError:  # `QuantileDMatrix` supports lesser types than DMatrix
+    962         pass
+
+File /gpfs/milgram/project/hwang/imc33/conda_envs/aitc/lib/python3.8/site-packages/xgboost/core.py:730, in require_keyword_args.<locals>.throw_if.<locals>.inner_f(*args, **kwargs)
+    728 for k, arg in zip(sig.parameters, args):
+    729     kwargs[k] = arg
+--> 730 return func(**kwargs)
+
+File /gpfs/milgram/project/hwang/imc33/conda_envs/aitc/lib/python3.8/site-packages/xgboost/core.py:1529, in QuantileDMatrix.__init__(self, data, label, weight, base_margin, missing, silent, feature_names, feature_types, nthread, max_bin, ref, group, qid, label_lower_bound, label_upper_bound, feature_weights, enable_categorical, data_split_mode)
+   1509     if any(
+   1510         info is not None
+   1511         for info in (
+   (...)
+   1522         )
+   1523     ):
+   1524         raise ValueError(
+   1525             "If data iterator is used as input, data like label should be "
+   1526             "specified as batch argument."
+   1527         )
+-> 1529 self._init(
+   1530     data,
+   1531     ref=ref,
+   1532     label=label,
+   1533     weight=weight,
+   1534     base_margin=base_margin,
+   1535     group=group,
+   1536     qid=qid,
+   1537     label_lower_bound=label_lower_bound,
+   1538     label_upper_bound=label_upper_bound,
+   1539     feature_weights=feature_weights,
+   1540     feature_names=feature_names,
+   1541     feature_types=feature_types,
+   1542     enable_categorical=enable_categorical,
+   1543 )
+
+File /gpfs/milgram/project/hwang/imc33/conda_envs/aitc/lib/python3.8/site-packages/xgboost/core.py:1588, in QuantileDMatrix._init(self, data, ref, enable_categorical, **meta)
+   1576 config = make_jcargs(
+   1577     nthread=self.nthread, missing=self.missing, max_bin=self.max_bin
+   1578 )
+   1579 ret = _LIB.XGQuantileDMatrixCreateFromCallback(
+   1580     None,
+   1581     it.proxy.handle,
+   (...)
+   1586     ctypes.byref(handle),
+   1587 )
+-> 1588 it.reraise()
+   1589 # delay check_call to throw intermediate exception first
+   1590 _check_call(ret)
+
+File /gpfs/milgram/project/hwang/imc33/conda_envs/aitc/lib/python3.8/site-packages/xgboost/core.py:576, in DataIter.reraise(self)
+    574 exc = self._exception
+    575 self._exception = None
+--> 576 raise exc
+
+File /gpfs/milgram/project/hwang/imc33/conda_envs/aitc/lib/python3.8/site-packages/xgboost/core.py:557, in DataIter._handle_exception(self, fn, dft_ret)
+    554     return dft_ret
+    556 try:
+--> 557     return fn()
+    558 except Exception as e:  # pylint: disable=broad-except
+    559     # Defer the exception in order to return 0 and stop the iteration.
+    560     # Exception inside a ctype callback function has no effect except
+    561     # for printing to stderr (doesn't stop the execution).
+    562     tb = sys.exc_info()[2]
+
+File /gpfs/milgram/project/hwang/imc33/conda_envs/aitc/lib/python3.8/site-packages/xgboost/core.py:641, in DataIter._next_wrapper.<locals>.<lambda>()
+    638     self._data_ref = ref
+    640 # pylint: disable=not-callable
+--> 641 return self._handle_exception(lambda: self.next(input_data), 0)
+
+File /gpfs/milgram/project/hwang/imc33/conda_envs/aitc/lib/python3.8/site-packages/xgboost/data.py:1280, in SingleBatchInternalIter.next(self, input_data)
+   1278     return 0
+   1279 self.it += 1
+-> 1280 input_data(**self.kwargs)
+   1281 return 1
+
+File /gpfs/milgram/project/hwang/imc33/conda_envs/aitc/lib/python3.8/site-packages/xgboost/core.py:730, in require_keyword_args.<locals>.throw_if.<locals>.inner_f(*args, **kwargs)
+    728 for k, arg in zip(sig.parameters, args):
+    729     kwargs[k] = arg
+--> 730 return func(**kwargs)
+
+File /gpfs/milgram/project/hwang/imc33/conda_envs/aitc/lib/python3.8/site-packages/xgboost/core.py:624, in DataIter._next_wrapper.<locals>.input_data(data, feature_names, feature_types, **kwargs)
+    622     new, cat_codes, feature_names, feature_types = self._temporary_data
+    623 else:
+--> 624     new, cat_codes, feature_names, feature_types = _proxy_transform(
+    625         data,
+    626         feature_names,
+    627         feature_types,
+    628         self._enable_categorical,
+    629     )
+    630 # Stage the data, meta info are copied inside C++ MetaInfo.
+    631 self._temporary_data = (new, cat_codes, feature_names, feature_types)
+
+File /gpfs/milgram/project/hwang/imc33/conda_envs/aitc/lib/python3.8/site-packages/xgboost/data.py:1315, in _proxy_transform(data, feature_names, feature_types, enable_categorical)
+   1313     data = pd.DataFrame(data)
+   1314 if _is_pandas_df(data):
+-> 1315     arr, feature_names, feature_types = _transform_pandas_df(
+   1316         data, enable_categorical, feature_names, feature_types
+   1317     )
+   1318     arr, _ = _ensure_np_dtype(arr, arr.dtype)
+   1319     return arr, None, feature_names, feature_types
+
+File /gpfs/milgram/project/hwang/imc33/conda_envs/aitc/lib/python3.8/site-packages/xgboost/data.py:490, in _transform_pandas_df(data, enable_categorical, feature_names, feature_types, meta, meta_type)
+    483 for dtype in data.dtypes:
+    484     if not (
+    485         (dtype.name in _pandas_dtype_mapper)
+    486         or is_pd_sparse_dtype(dtype)
+    487         or (is_pd_cat_dtype(dtype) and enable_categorical)
+    488         or is_pa_ext_dtype(dtype)
+    489     ):
+--> 490         _invalid_dataframe_dtype(data)
+    491     if is_pa_ext_dtype(dtype):
+    492         pyarrow_extension = True
+
+File /gpfs/milgram/project/hwang/imc33/conda_envs/aitc/lib/python3.8/site-packages/xgboost/data.py:308, in _invalid_dataframe_dtype(data)
+    306 type_err = "DataFrame.dtypes for data must be int, float, bool or category."
+    307 msg = f"""{type_err} {_ENABLE_CAT_ERR} {err}"""
+--> 308 raise ValueError(msg)
+
+ValueError: DataFrame.dtypes for data must be int, float, bool or category. When categorical type is supplied, The experimental DMatrix parameter`enable_categorical` must be set to `True`.  Invalid columns:medical_record_number: object
+
