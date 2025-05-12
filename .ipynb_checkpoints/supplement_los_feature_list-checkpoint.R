@@ -1,15 +1,10 @@
-
-
-# LIBRARIES ---------------------------------------------------------------
-
-
 library(tidyverse)
 library(readxl)
 library(sjlabelled)
 library(naniar)
 
-
-# FUNCTIONS ---------------------------------------------------------------
+raw_df = read_excel("/gpfs/milgram/project/rtaylor/imc33/LOS/data/features_los.xlsx")
+data_df = read_csv("/gpfs/milgram/project/rtaylor/imc33/LOS/data/master_los.csv")
 
 map_source <- function(value) {
   case_when(
@@ -23,6 +18,7 @@ map_source <- function(value) {
     TRUE ~ NA_character_
   )
 }
+
 
 get_codebook <- function(df) {
   # Extract labels
@@ -75,32 +71,19 @@ get_codebook <- function(df) {
 }
 
 
-process_df <- function(raw_df, data_df) {
-  cb <- get_codebook(data_df)
-  
-  raw_df %>%
-    filter(!type %in% c("drop", "continuous", "unchanged")) %>%
-    rename(variable = col_name) %>%
-    mutate(source = map_source(variable)) %>%
-    left_join(cb, by = "variable") %>%
-    select(-r_class)
-}
+df2 <- raw_df %>%
+  filter(!type %in% c("drop", "continuous","unchanged")) %>%
+  rename(variable = col_name) %>%
+  mutate(source = map_source(variable))
+
+cb = get_codebook(data_df)
 
 
+df3 = df2 %>%
+      left_join(cb, by="variable") %>%
+      select(-r_class)
 
-# PROCESS AND EXPORT ------------------------------------------------------
-
-
-raw_df_simple = read_excel("/gpfs/milgram/project/rtaylor/imc33/LOS/data/features_los_simple.xlsx")
-raw_df_complex = read_excel("/gpfs/milgram/project/rtaylor/imc33/LOS/data/features_los.xlsx")
-data_df = read_csv("/gpfs/milgram/project/rtaylor/imc33/LOS/data/master_los.csv")
+#sapply(df3, class)
 
 
-df3_simple <- process_df(raw_df_simple, data_df)
-df3_complex <- process_df(raw_df_complex, data_df)
-
-View(df3_simple)
-
-
-write.csv(df3_simple, "/gpfs/milgram/project/rtaylor/imc33/LOS/output/supplement_los_features_2a.csv")
-write.csv(df3_complex, "/gpfs/milgram/project/rtaylor/imc33/LOS/output/supplement_los_features_2b.csv")
+write.csv(df3, "/gpfs/milgram/project/rtaylor/imc33/LOS/output/supplement_los_features.csv")
