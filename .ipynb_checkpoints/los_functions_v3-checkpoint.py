@@ -524,28 +524,73 @@ def run_xgb_continuous_and_plot(df_filt, fp, output_folder, df_name, suffix, mod
 
 
 
+import pickle
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.calibration import calibration_curve
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import brier_score_loss
+
 def run_xgb_and_plot(df_filt, fp, output_folder, df_name, suffix, model_path):
+    # Preprocess and select features
     X_train_preprocessed, X_val_preprocessed, y_train, y_val = preprocess_features(fp, df_filt)
     X_train_selected, X_val_selected = select_features(X_train_preprocessed, X_val_preprocessed, y_train)
+
+    # Train model
     model_xgb = run_xgb_tune_fit_1b(X_train_selected, y_train, num_eval=20)
     results = evaluate_model(model_xgb, X_val_selected, y_val)
 
-
+    # Save datasets
     X_train_selected.to_csv("/gpfs/milgram/project/rtaylor/imc33/LOS/output/X_train_selected.csv")
     X_val_selected.to_csv("/gpfs/milgram/project/rtaylor/imc33/LOS/output/X_val_selected.csv")
     y_train.to_csv("/gpfs/milgram/project/rtaylor/imc33/LOS/output/y_train.csv")
     y_val.to_csv("/gpfs/milgram/project/rtaylor/imc33/LOS/output/y_val.csv")
-    
 
+    # Save model
     with open(model_path, "wb") as f:
-
         pickle.dump(model_xgb, f)
 
-   
+    # Plot performance metrics
     fig = plot_metrics(results)
-
     fig = plot_cm(results)
-
     fig = plot_shap(model_xgb, X_val_selected)
 
-    print(f"Model saved to {model_path}")
+    # ===== Calibration Metrics and Plot =====
+    y_probs = model_xgb.predict_proba(X_val_selected)[:, 1]
+
+    # Brier Score
+    brier = brier_score_loss(y_val, y_probs)
+
+    # Calibration slope & intercept (via log-odds regression)
+    eps = 1e-15  # avoid division by zero
+    log_odds = np.log(np.clip(y_probs, eps, 1 - eps) / np.clip(1 - y_probs, eps, 1 - eps))
+    cal_model = LogisticRegression(solver="lbfgs")
+    cal_model.fit(log_odds.reshape(-1, 1), y_val)
+    slope = cal_model.coef_[0][0]
+    intercept = cal_model.intercept_[0]
+
+    # Calibration curve for plotting
+    prob_true, prob_pred = calibration_curve(y_val, y_probs, n_bins=10)
+
+    # Plot calibration curve
+    fig, ax = plt.subplots()
+    ax.plot(prob_pred, prob_true, marker='o', label='Model')
+    ax.plot([0, 1], [0, 1], linestyle='--', color='black', label='Perfect Calibration')
+    ax.set_title(f"Calibration Plot ({df_name})")
+    ax.set_xlabel("Predicted Probability")
+    ax.set_ylabel("Observed Probability")
+    ax.grid(True)
+    ax.legend()
+
+    # Annotate with metrics
+    textstr = f"Brier = {brier:.3f}\nSlope = {slope:.2f}\nIntercept = {intercept:.2f}"
+    ax.text(0.05, 0.85, textstr, transform=ax.transAxes, fontsize=10,
+            verticalalignment='top', bbox=dict(boxstyle="round", facecolor='white', alpha=0.7))
+
+    # Save plot
+    plt.tight_layout()
+    plt.savefig(f"{output_folder}/{df_name}_calibration_{suffix}.png")
+    plt.close()
+
+    print(f"Model and plots saved for {df_name} to {output_folder}")
+    print(f"Calibration — Brier: {brier:.3f}, Slope: {slope:.2f}, Intercept: {intercept:.2f}")
